@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Trinity Academy
 
-## Getting Started
+Platform pendidikan dan bimbingan belajar terpercaya di **Ambon, Maluku**. Menyediakan les privat (offline) dan les online untuk jenjang TK sampai SMA, serta program pengembangan non-akademik (sociopreneur, leadership, content creation) untuk pemuda di Indonesia Timur.
 
-First, run the development server:
+## Fitur
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Halaman Publik
+| Halaman | Rute | Deskripsi |
+|---|---|---|
+| **Beranda** | `/` | Hero statistik, keunggulan, paket harga, carousel tutor, testimoni |
+| **Tentang** | `/about` | Latar belakang, visi/misi, timeline interaktif, profil founder |
+| **Program** | `/program` | Les Private (TK–SMA) & Les Online (Regular, UTBK/SNBT, Intensif) |
+| **Signature** | `/signature` | Program unggulan: TASA, Impact Lab, Impact Talks, Goes to School, Scholarship |
+| **Tutor** | `/tutor` | Grid tutor dengan foto, bio, mata pelajaran |
+| **FAQ** | `/faq` | Akordion 10 pertanyaan seputar program & pendaftaran |
+| **Kebijakan Privasi** | `/privacy` | Dokumen kebijakan privasi |
+
+### Panel Admin (`/admin/*`)
+| Halaman | Deskripsi |
+|---|---|
+| **Dashboard** | Statistik pendaftaran, tutor, testimoni; tabel pendaftaran terbaru |
+| **Registrasi** | Kelola pendaftaran siswa (filter, cari, ubah status, hapus, link WA) |
+| **Tutor** | CRUD tutor + upload foto ke Supabase Storage |
+| **Testimoni** | CRUD testimoni dengan rating, toggle aktif/nonaktif |
+| **Konten** | Edit konten situs (hero, tentang, kontak, statistik) |
+
+### Komponen UI
+- Navbar sticky dengan progress bar scroll
+- Footer dengan form feedback (WhatsApp)
+- Animasi scroll (IntersectionObserver)
+- Floating tombol WhatsApp
+- Hero dengan animasi counter
+
+## Tech Stack
+
+| Teknologi | Versi |
+|---|---|
+| **Next.js** (App Router) | 16.2.4 |
+| **React** | 19.2.4 |
+| **Tailwind CSS** | ^4 |
+| **Supabase** (Auth, DB, Storage) | ^2.105.3 |
+| **TypeScript** | ^6.0.3 |
+| **ESLint** | ^9 |
+
+## Struktur Folder
+
+```
+├── app/                  # Pages (App Router)
+│   ├── admin/            # Panel admin (login, dashboard, CRUD)
+│   ├── about/            # Halaman tentang
+│   ├── program/          # Halaman program
+│   ├── signature/        # Halaman signature program
+│   ├── tutor/            # Halaman tutor
+│   └── faq/              # Halaman FAQ
+│   └── privacy/          # Halaman privasi
+├── components/           # UI components
+│   ├── sections/         # Section components (Hero, dll)
+│   └── ui/               # Utility components (ScrollReveal, icons)
+├── constants/            # Konfigurasi situs (WA, sosial media, dll)
+├── data/                 # Data statis (program, tutor, navigasi)
+├── lib/                  # Inisialisasi Supabase client
+├── services/             # CRUD services (Auth, content, registrations, dll)
+├── types/                # TypeScript type definitions
+└── public/               # Assets statis (images, robots.txt, sitemap)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Cara Menjalankan
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. **Clone repositori**
+   ```bash
+   git clone <repo-url>
+   cd trinity-academy-id-2.0-main
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. **Buat file `.env.local`** dengan variabel environment berikut:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=<url-proyek-supabase>
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key-supabase>
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Jalankan development server**
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Buka [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Scripts
 
-## Deploy on Vercel
+| Perintah | Deskripsi |
+|---|---|
+| `npm run dev` | Development server |
+| `npm run build` | Build production |
+| `npm run start` | Jalankan production server |
+| `npm run lint` | Jalankan ESLint |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Konfigurasi
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Semua konstanta situs (nomor WhatsApp, nama situs, URL sosial media, alamat) dapat diubah di `constants/index.ts`.
+
+Struktur tabel database Supabase (inferensi dari services):
+- `registrations` — Pendaftaran siswa
+- `tutors` — Data tutor
+- `testimonials` — Testimoni
+- `site_content` — Konten situs (key-value)
+
+Storage bucket: `trinity-assets` (untuk foto tutor)
+
+## Deployment
+
+Aplikasi siap dideploy ke [Vercel](https://vercel.com). Pastikan variabel environment sudah diatur di dashboard Vercel.
