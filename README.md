@@ -15,14 +15,8 @@ Platform pendidikan dan bimbingan belajar terpercaya di **Ambon, Maluku**. Menye
 | **FAQ** | `/faq` | Akordion 10 pertanyaan seputar program & pendaftaran |
 | **Kebijakan Privasi** | `/privacy` | Dokumen kebijakan privasi |
 
-### Panel Admin (`/admin/*`)
-| Halaman | Deskripsi |
-|---|---|
-| **Dashboard** | Statistik pendaftaran, tutor, testimoni; tabel pendaftaran terbaru |
-| **Registrasi** | Kelola pendaftaran siswa (filter, cari, ubah status, hapus, link WA) |
-| **Tutor** | CRUD tutor + upload foto ke Supabase Storage |
-| **Testimoni** | CRUD testimoni dengan rating, toggle aktif/nonaktif |
-| **Konten** | Edit konten situs (hero, tentang, kontak, statistik) |
+### Panel Admin (`/admin/*`) — Tidak Aktif
+Panel admin tersedia tetapi **membutuhkan konfigurasi database Supabase** untuk dapat digunakan. Saat ini seluruh konten website menggunakan data statis.
 
 ### Komponen UI
 - Navbar sticky dengan progress bar scroll
@@ -38,28 +32,27 @@ Platform pendidikan dan bimbingan belajar terpercaya di **Ambon, Maluku**. Menye
 | **Next.js** (App Router) | 16.2.4 |
 | **React** | 19.2.4 |
 | **Tailwind CSS** | ^4 |
-| **Supabase** (Auth, DB, Storage) | ^2.105.3 |
 | **TypeScript** | ^6.0.3 |
 | **ESLint** | ^9 |
+
+> **Catatan:** Proyek ini berjalan **tanpa database**. Seluruh data bersifat statis dan didefinisikan langsung di dalam file `data/` dan komponen.
 
 ## Struktur Folder
 
 ```
 ├── app/                  # Pages (App Router)
-│   ├── admin/            # Panel admin (login, dashboard, CRUD)
+│   ├── admin/            # Panel admin (membutuhkan database)
 │   ├── about/            # Halaman tentang
 │   ├── program/          # Halaman program
 │   ├── signature/        # Halaman signature program
 │   ├── tutor/            # Halaman tutor
-│   └── faq/              # Halaman FAQ
+│   ├── faq/              # Halaman FAQ
 │   └── privacy/          # Halaman privasi
 ├── components/           # UI components
 │   ├── sections/         # Section components (Hero, dll)
 │   └── ui/               # Utility components (ScrollReveal, icons)
 ├── constants/            # Konfigurasi situs (WA, sosial media, dll)
 ├── data/                 # Data statis (program, tutor, navigasi)
-├── lib/                  # Inisialisasi Supabase client
-├── services/             # CRUD services (Auth, content, registrations, dll)
 ├── types/                # TypeScript type definitions
 └── public/               # Assets statis (images, robots.txt, sitemap)
 ```
@@ -77,18 +70,14 @@ Platform pendidikan dan bimbingan belajar terpercaya di **Ambon, Maluku**. Menye
    npm install
    ```
 
-3. **Buat file `.env.local`** dengan variabel environment berikut:
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=<url-proyek-supabase>
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key-supabase>
-   ```
-
-4. **Jalankan development server**
+3. **Jalankan development server**
    ```bash
    npm run dev
    ```
 
-5. Buka [http://localhost:3000](http://localhost:3000)
+4. Buka [http://localhost:3000](http://localhost:3000)
+
+> Tidak perlu konfigurasi database atau file `.env` — proyek langsung berjalan dengan data statis.
 
 ### Scripts
 
@@ -103,14 +92,20 @@ Platform pendidikan dan bimbingan belajar terpercaya di **Ambon, Maluku**. Menye
 
 Semua konstanta situs (nomor WhatsApp, nama situs, URL sosial media, alamat) dapat diubah di `constants/index.ts`.
 
-Struktur tabel database Supabase (inferensi dari services):
-- `registrations` — Pendaftaran siswa
-- `tutors` — Data tutor
-- `testimonials` — Testimoni
-- `site_content` — Konten situs (key-value)
+### Data Statis
 
-Storage bucket: `trinity-assets` (untuk foto tutor)
+Konten website dikelola melalui file-file berikut:
+
+| File | Deskripsi |
+|---|---|
+| `data/tutors.ts` | Data tutor (nama, role, mapel, foto) |
+| `data/programs.ts` | Data program (private, online, signature) |
+| `data/navigation.ts` | Navigasi navbar & footer |
+| `data/subjects.ts` | Daftar mata pelajaran per jenjang |
+| `data/about.tsx` | Data halaman tentang (founder, milestone, values) |
+| `constants/index.ts` | Konstanta (WA, sosial media, alamat) |
+| `components/sections/Testimoni.js` | Data testimoni (hardcoded di komponen) |
 
 ## Deployment
 
-Aplikasi siap dideploy ke [Vercel](https://vercel.com). Pastikan variabel environment sudah diatur di dashboard Vercel.
+Aplikasi siap dideploy ke [Vercel](https://vercel.com) tanpa perlu konfigurasi tambahan.
