@@ -72,12 +72,14 @@ export default function Navbar() {
           {/* ── Logo ── */}
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, marginRight: 'auto', textDecoration: 'none' }}>
             <div style={{ position: 'relative', width: 38, height: 38, flexShrink: 0 }}>
+              {/* Next.js 16: 'priority' sudah deprecated, ganti pakai 'preload'.
+                  preload=true → logo di-preload di <head> agar LCP lebih cepat */}
               <Image
                 src="/images/logo.png" 
                 alt="Trinity Academy Logo"
                 fill
                 style={{ objectFit: 'contain' }}
-                priority
+                preload={true}
               />
             </div>
             <span style={{

@@ -35,7 +35,7 @@ export default function AdminLayout({ children }) {
       setUser(session?.user ?? null)
     })
     return () => subscription.unsubscribe()
-  }, [pathname])
+  }, [pathname, isLogin, router])
 
   // Login page — bersih tanpa sidebar
   if (isLogin) {

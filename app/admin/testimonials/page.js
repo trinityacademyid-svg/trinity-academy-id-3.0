@@ -13,13 +13,12 @@ export default function AdminTestimonials() {
   const [showForm, setShowForm] = useState(false)
   const [toast, setToast]       = useState('')
 
-  async function load() {
-    setLoading(true)
-    const data = await getTestimonials()
-    setItems(data)
-    setLoading(false)
-  }
-  useEffect(() => { load() }, [])
+  useEffect(() => {
+    getTestimonials().then(data => {
+      setItems(data)
+      setLoading(false)
+    })
+  }, [])
 
   function showToast(msg) { setToast(msg); setTimeout(() => setToast(''), 3000) }
 
@@ -121,7 +120,7 @@ export default function AdminTestimonials() {
                   {t.active ? 'Aktif' : 'Nonaktif'}
                 </span>
               </div>
-              <p style={{ fontSize: '.88rem', color: 'var(--gray-700)', fontStyle: 'italic', lineHeight: 1.65, marginBottom: 14 }}>"{t.text}"</p>
+              <p style={{ fontSize: '.88rem', color: 'var(--gray-700)', fontStyle: 'italic', lineHeight: 1.65, marginBottom: 14 }}>&ldquo;{t.text}&rdquo;</p>
               <div style={{ borderTop: '1px solid var(--gray-200)', paddingTop: 12 }}>
                 <p style={{ fontWeight: 700, fontSize: '.88rem', color: 'var(--navy)' }}>{t.name}</p>
                 <p style={{ fontSize: '.76rem', color: 'var(--gray-400)', marginBottom: 12 }}>{t.role}</p>

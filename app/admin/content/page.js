@@ -24,13 +24,12 @@ export default function AdminContent() {
   const [saving, setSaving]   = useState(false)
   const [toast, setToast]     = useState('')
 
-  async function load() {
-    setLoading(true)
-    const map = await getSiteContent()
-    setContent(map)
-    setLoading(false)
-  }
-  useEffect(() => { load() }, [])
+  useEffect(() => {
+    getSiteContent().then(map => {
+      setContent(map)
+      setLoading(false)
+    })
+  }, [])
 
   function showToast(msg) { setToast(msg); setTimeout(() => setToast(''), 3000) }
 

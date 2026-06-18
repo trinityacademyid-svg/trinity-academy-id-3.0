@@ -16,14 +16,12 @@ export default function AdminTutors() {
   const [toast, setToast]       = useState('')
   const fileRef = useRef()
 
-  async function load() {
-    setLoading(true)
-    const data = await getTutors()
-    setTutors(data)
-    setLoading(false)
-  }
-
-  useEffect(() => { load() }, [])
+  useEffect(() => {
+    getTutors().then(data => {
+      setTutors(data)
+      setLoading(false)
+    })
+  }, [])
 
   function showToast(msg) {
     setToast(msg)

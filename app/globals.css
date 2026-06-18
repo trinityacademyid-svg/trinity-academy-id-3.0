@@ -1,12 +1,19 @@
 /*
 === GLOBAL CSS — GAYA DASAR WEBSITE ===
 File ini berisi:
+- Tailwind CSS v4 base styles (@import "tailwindcss")
 - Warna utama (CSS variables): navy, orange, blue, gray
 - Style tombol (.btn, .btn-orange, .btn-primary)
 - Style section, container, card
 - Font family dan utility classes
 - Responsive breakpoint untuk mobile
+
+CATATAN:
+- @import "tailwindcss" WAJIB ada di Tailwind v4 agar PostCSS plugin bekerja
+- Tanpa ini, Tailwind utility classes tidak akan tersedia
+- Letaknya HARUS di baris paling atas sebelum CSS lainnya
 */
+@import "tailwindcss";
 :root {
   --font-montserrat: 'Montserrat', sans-serif;
   --font-inter: 'Inter', sans-serif;

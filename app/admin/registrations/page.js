@@ -17,13 +17,12 @@ export default function AdminRegistrations() {
   const [selected, setSelected] = useState(null)
   const [toast, setToast]       = useState('')
 
-  async function load() {
-    setLoading(true)
-    const data = await getRegistrations()
-    setItems(data)
-    setLoading(false)
-  }
-  useEffect(() => { load() }, [])
+  useEffect(() => {
+    getRegistrations().then(data => {
+      setItems(data)
+      setLoading(false)
+    })
+  }, [])
 
   function showToast(msg) { setToast(msg); setTimeout(() => setToast(''), 3000) }
 

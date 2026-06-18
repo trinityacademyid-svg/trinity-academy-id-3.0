@@ -22,21 +22,21 @@ export default function ScrollReveal({
 }) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
-  const [noMotion, setNoMotion] = useState(false)
+  // Init 'noMotion' dari media query awal (tidak pakai setState di effect)
+  const [noMotion, setNoMotion] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
 
+  // Hanya listen perubahan preferensi (setState hanya di event callback)
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setNoMotion(mq.matches)
     const fn = (e) => setNoMotion(e.matches)
     mq.addEventListener('change', fn)
     return () => mq.removeEventListener('change', fn)
   }, [])
 
   useEffect(() => {
-    if (noMotion) {
-      setVisible(true)
-      return
-    }
+    if (noMotion) return
     const el = ref.current
     if (!el) return
     const raf = requestAnimationFrame(() => {
