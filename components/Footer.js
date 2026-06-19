@@ -94,6 +94,7 @@ export default function Footer() {
                   src="/images/logo.png"
                   alt={`${SITE_NAME} Logo`}
                   fill
+                  sizes="36px"
                   style={{ objectFit: 'contain' }}
                 />
               </div>

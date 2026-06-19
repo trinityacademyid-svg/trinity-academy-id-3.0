@@ -24,14 +24,14 @@ export const founders: Founder[] = [
   {
     name: 'Nama Founder 1',
     role: 'Co-Founder & CEO',
-    photo: '/images/founder-1.jpg',
+    photo: '/images/profile-icon.jpg',
     bio: 'Deskripsi singkat Founder 1. Latar belakang pendidikan, pengalaman, dan motivasi mendirikan Trinity Academy. Ganti teks ini dengan cerita nyata.',
     linkedin: '#',
   },
   {
     name: 'Nama Founder 2',
     role: 'Co-Founder & Director',
-    photo: '/images/founder-2.jpg',
+    photo: '/images/profile-icon.jpg',
     bio: 'Deskripsi singkat Founder 2. Latar belakang pendidikan, pengalaman, dan kontribusi dalam membangun Trinity Academy. Ganti teks ini dengan cerita nyata.',
     linkedin: '#',
   },

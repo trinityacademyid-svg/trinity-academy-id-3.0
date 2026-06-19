@@ -407,7 +407,8 @@ export default function AboutPage() {
                 }}>
                   <div style={{ position: 'relative', aspectRatio: '4/3', background: 'var(--blue-pale)', overflow: 'hidden' }}>
                     <FounderPhoto src={f.photo} alt={`Foto ${f.name}`} />
-                    <div style={{
+                    {/* digunakan sebagai placeholder jika foto asli belum tersedia, bisa dihapus jika sudah ada foto nyata */}
+                    {/* <div style={{
                       position: 'absolute', inset: 0,
                       display: 'flex', flexDirection: 'column',
                       alignItems: 'center', justifyContent: 'center',
@@ -419,7 +420,7 @@ export default function AboutPage() {
                         <circle cx="12" cy="7" r="4"/>
                       </svg>
                       <p style={{ fontSize: '.78rem', marginTop: 10 }}>Upload foto ke /public/images/</p>
-                    </div>
+                    </div> */}
                     <div style={{
                       position: 'absolute', bottom: 0, left: 0, right: 0,
                       height: 4, background: 'linear-gradient(90deg, var(--blue), #f59e0b)',

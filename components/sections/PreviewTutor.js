@@ -14,12 +14,16 @@ export default function PreviewTutor() {
 
   const onMouseDown = useCallback((e) => {
     setIsDragging(true)
+    // Matikan smooth scroll saat drag biar posisi akurat
+    if (scrollRef.current) scrollRef.current.style.scrollBehavior = 'auto'
     setStartX(e.pageX - scrollRef.current.offsetLeft)
     setScrollLeft(scrollRef.current.scrollLeft)
   }, [])
 
   const onMouseUp = useCallback(() => {
     setIsDragging(false)
+    // Kembalikan smooth scroll buat interaksi normal
+    if (scrollRef.current) scrollRef.current.style.scrollBehavior = 'smooth'
   }, [])
 
   const onMouseMove = useCallback((e) => {
@@ -36,12 +40,14 @@ export default function PreviewTutor() {
 
     const startScroll = () => {
       if (autoRef.current) clearInterval(autoRef.current)
+      // Matikan CSS smooth scroll selama auto-scroll biar nggak ngantri animasi
+      el.style.scrollBehavior = 'auto'
       autoRef.current = setInterval(() => {
         const maxScroll = el.scrollWidth - el.clientWidth
         if (el.scrollLeft >= maxScroll - 10) {
-          el.scrollTo({ left: 0, behavior: 'smooth' })
+          el.scrollLeft = 0
         } else {
-          el.scrollBy({ left: 1, behavior: 'smooth' })
+          el.scrollLeft += 1
         }
       }, 30)
     }
@@ -51,6 +57,8 @@ export default function PreviewTutor() {
         clearInterval(autoRef.current)
         autoRef.current = null
       }
+      // Aktifkan smooth scroll lagi buat interaksi user
+      el.style.scrollBehavior = 'smooth'
     }
 
     startScroll()
@@ -92,7 +100,6 @@ export default function PreviewTutor() {
           onMouseMove={onMouseMove}
           style={{
             display: 'flex', gap: 20, overflowX: 'auto',
-            scrollBehavior: isDragging ? 'auto' : 'smooth',
             cursor: isDragging ? 'grabbing' : 'grab',
             scrollbarWidth: 'none', msOverflowStyle: 'none',
             padding: '8px 4px', userSelect: 'none',
@@ -119,6 +126,7 @@ export default function PreviewTutor() {
                   src={tutor.photo}
                   alt={tutor.name}
                   fill
+                  sizes="80px"
                   style={{ objectFit: 'cover' }}
                 />
               </div>

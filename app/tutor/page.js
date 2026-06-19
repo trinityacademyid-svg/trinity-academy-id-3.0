@@ -64,7 +64,7 @@ export default function TutorPage() {
               <ScrollReveal key={t.id}>
                 <div className="card" style={{ overflow: 'hidden', padding: 0 }}>
                   <div style={{ position: 'relative', aspectRatio: '4/3', background: 'var(--blue-pale)' }}>
-                    <Image src={t.photo} alt={`Foto ${t.name}`} fill style={{ objectFit: 'cover', objectPosition: 'top' }} />
+                    <Image src={t.photo} alt={`Foto ${t.name}`} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" style={{ objectFit: 'cover', objectPosition: 'top' }} />
                     <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--blue)', opacity: .28, pointerEvents: 'none' }}>
                       <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>

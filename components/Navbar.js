@@ -78,6 +78,7 @@ export default function Navbar() {
                 src="/images/logo.png" 
                 alt="Trinity Academy Logo"
                 fill
+                sizes="38px"
                 style={{ objectFit: 'contain' }}
                 preload={true}
               />
@@ -170,7 +171,7 @@ export default function Navbar() {
           transition: 'transform .35s ease .1s',
         }}>
           <div style={{ position: 'relative', width: 44, height: 44 }}>
-            <Image src="/images/logo.png" alt="Logo" fill style={{ objectFit: 'contain' }} />
+            <Image src="/images/logo.png" alt="Logo" fill sizes="44px" style={{ objectFit: 'contain' }} />
           </div>
           <span style={{ fontFamily: "'Montserrat',sans-serif", fontSize: '1.2rem', color: 'white', fontWeight: 700 }}>
             Trinity <em style={{ color: '#f59e0b' }}>Academy</em>
